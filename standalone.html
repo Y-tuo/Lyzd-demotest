@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>数据魔方 - 关键指标平台</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb' },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fade-in 0.3s ease-out forwards;
+        }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.2.0",
+        "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+        "react/": "https://esm.sh/react@18.2.0/",
+        "lucide-react": "https://esm.sh/lucide-react@0.344.0"
+      }
+    }
+    </script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="module">
+        import React from 'react';
+        import ReactDOM from 'react-dom/client';
+        import { Box } from 'lucide-react';
+
+        // Simple test component
+        function App() {
+            return React.createElement('div', {
+                className: 'flex items-center justify-center h-screen bg-gray-100'
+            },
+                React.createElement('div', {
+                    className: 'bg-white p-8 rounded-lg shadow-lg text-center'
+                },
+                    React.createElement('h1', {
+                        className: 'text-2xl font-bold text-gray-800 mb-4'
+                    }, '🎯 关键指标平台'),
+                    React.createElement('p', {
+                        className: 'text-gray-600 mb-6'
+                    }, '项目需要 Node.js 环境才能正常运行'),
+                    React.createElement('div', {
+                        className: 'bg-blue-50 border border-blue-200 rounded-lg p-4 text-left text-sm'
+                    },
+                        React.createElement('p', {
+                            className: 'font-bold text-blue-900 mb-2'
+                        }, '安装步骤：'),
+                        React.createElement('ol', {
+                            className: 'list-decimal list-inside space-y-2 text-blue-800'
+                        },
+                            React.createElement('li', null, '安装 Node.js: brew install node'),
+                            React.createElement('li', null, '安装依赖: npm install'),
+                            React.createElement('li', null, '启动项目: npm run dev')
+                        )
+                    )
+                )
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(React.createElement(App));
+    </script>
+</body>
+
+</html>
