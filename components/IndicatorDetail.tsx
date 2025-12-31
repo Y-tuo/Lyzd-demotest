@@ -1,6 +1,6 @@
 
 import React, { useRef, useState } from 'react';
-import { X, FileText, FileSpreadsheet, Code, Zap, Info, Database, Check, Settings, Users, ChevronRight } from 'lucide-react';
+import { X, FileText, FileSpreadsheet, Code, Zap, Info, Database, Check, Settings, Users, ChevronRight, Download, LayoutGrid, LayoutDashboard } from 'lucide-react';
 
 interface IndicatorDetailProps {
   title?: string;
@@ -14,7 +14,8 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
   title,
   onViewProductCatalog,
   onViewClientScope,
-  onViewCurrencyScope
+  onViewCurrencyScope,
+  onViewIndicatorSpace
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [showDownloadModal, setShowDownloadModal] = useState(false);
@@ -52,12 +53,22 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowDownloadModal(true)}
-            className="bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-blue-700 transition shadow-sm active:scale-95"
+            className="bg-[#3b82f6] text-white px-4 py-2 rounded text-xs font-medium hover:bg-blue-600 transition shadow-sm active:scale-95 flex items-center gap-2"
           >
+            <Download size={14} />
             规范下载
           </button>
-          <button className="bg-blue-500 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-blue-600 transition shadow-sm active:scale-95">指标空间</button>
-          <button className="bg-blue-400 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-blue-500 transition shadow-sm active:scale-95">指标看板</button>
+          <button
+            onClick={onViewIndicatorSpace}
+            className="bg-[#3b82f6] text-white px-4 py-2 rounded text-xs font-medium hover:bg-blue-600 transition shadow-sm active:scale-95 flex items-center gap-2"
+          >
+            <LayoutGrid size={14} />
+            指标空间
+          </button>
+          <button className="bg-[#3b82f6] text-white px-4 py-2 rounded text-xs font-medium hover:bg-blue-600 transition shadow-sm active:scale-95 flex items-center gap-2">
+            <LayoutDashboard size={14} />
+            指标看板
+          </button>
         </div>
 
         <div className="flex items-center gap-2">
