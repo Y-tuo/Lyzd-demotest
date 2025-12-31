@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 // Fix: Added Database to the imported icons from lucide-react
-import { Download, Share2, LayoutDashboard, X, FileText, FileSpreadsheet, ShieldCheck, History, Code, Zap, Info, AlertCircle, Database } from 'lucide-react';
+import { Download, Share2, LayoutDashboard, X, FileText, FileSpreadsheet, ShieldCheck, History, Code, Zap, Info, AlertCircle, Database, Check } from 'lucide-react';
 
 interface IndicatorDetailProps {
   title?: string;
@@ -351,11 +351,21 @@ FROM daily_bal;`}
               <p className="text-sm text-gray-500 mt-2">请选择导出格式，文件将包含所有章节内容</p>
             </div>
             <div className="grid grid-cols-2 gap-8 mb-12">
-              <button onClick={() => toggleFormat('word')} className={`flex flex-col items-center justify-center gap-5 p-10 border-2 rounded-3xl transition-all ${selectedFormats.has('word') ? 'border-blue-500 bg-blue-50/50' : 'border-gray-50 bg-gray-50 hover:border-gray-200'}`}>
+              <button onClick={() => toggleFormat('word')} className={`relative flex flex-col items-center justify-center gap-5 p-10 border-2 rounded-3xl transition-all ${selectedFormats.has('word') ? 'border-blue-500 bg-blue-50/50' : 'border-gray-50 bg-gray-50 hover:border-gray-200'}`}>
+                {selectedFormats.has('word') && (
+                  <div className="absolute top-4 right-4 bg-blue-600 text-white rounded-full p-1 shadow-sm">
+                    <Check size={14} strokeWidth={3} />
+                  </div>
+                )}
                 <FileText size={40} className="text-blue-600" />
                 <span className="text-sm font-bold text-gray-700">Word 文档</span>
               </button>
-              <button onClick={() => toggleFormat('excel')} className={`flex flex-col items-center justify-center gap-5 p-10 border-2 rounded-3xl transition-all ${selectedFormats.has('excel') ? 'border-emerald-500 bg-emerald-50/50' : 'border-gray-50 bg-gray-50 hover:border-gray-200'}`}>
+              <button onClick={() => toggleFormat('excel')} className={`relative flex flex-col items-center justify-center gap-5 p-10 border-2 rounded-3xl transition-all ${selectedFormats.has('excel') ? 'border-emerald-500 bg-emerald-50/50' : 'border-gray-50 bg-gray-50 hover:border-gray-200'}`}>
+                {selectedFormats.has('excel') && (
+                  <div className="absolute top-4 right-4 bg-emerald-600 text-white rounded-full p-1 shadow-sm">
+                    <Check size={14} strokeWidth={3} />
+                  </div>
+                )}
                 <FileSpreadsheet size={40} className="text-emerald-600" />
                 <span className="text-sm font-bold text-gray-700">Excel 表格</span>
               </button>
