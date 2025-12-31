@@ -79,13 +79,15 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
               { id: '2', name: '关联子指标二' },
               { id: '3', name: '关联子指标三' }
             ].map((sub) => (
-              <button
+              <a
                 key={sub.id}
-                className="group flex items-center gap-1 bg-blue-50 hover:bg-blue-100 text-blue-600 px-3 py-1.5 rounded text-xs transition-colors"
+                href="#"
+                onClick={(e) => { e.preventDefault(); /* Navigation logic here */ }}
+                className="group flex items-center gap-1 bg-blue-50 hover:bg-white text-blue-600 px-3 py-1.5 rounded text-xs transition-all border border-blue-200 hover:border-blue-600"
               >
-                <span className="font-medium group-hover:underline">{sub.name}</span>
+                <span className="font-medium">{sub.name}</span>
                 <ChevronRight size={12} className="text-blue-400 group-hover:text-blue-600" />
-              </button>
+              </a>
             ))}
           </div>
         </div>
@@ -106,7 +108,7 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
             <button
               key={idx}
               onClick={() => scrollToSection(item.ref)}
-              className="px-3 py-1.5 text-xs text-gray-500 hover:text-blue-600 hover:bg-white rounded-md whitespace-nowrap transition-all border border-transparent hover:border-blue-100 bg-white/50"
+              className="px-3 py-1.5 text-xs text-gray-500 bg-white border border-gray-200 rounded-md whitespace-nowrap transition-all hover:text-blue-600 hover:border-blue-500 hover:shadow-sm"
             >
               {item.label}
             </button>

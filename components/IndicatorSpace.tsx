@@ -311,14 +311,14 @@ export const IndicatorSpace: React.FC<IndicatorSpaceProps> = ({ onBack }) => {
                         <div
                             className={`absolute rounded-xl border-2 transition-all duration-500 z-0 cursor-help
                         ${hoveredGroupId === 'red' ? 'border-red-400 bg-red-50/40 shadow-lg' : 'border-red-100 bg-red-50/10'}`}
-                            style={{ left: 1020, top: 100, width: 280, height: 260 }}
+                            style={{ left: 1020, top: 100, width: 280, height: 280 }}
                             onMouseEnter={() => setHoveredGroupId('red')}
                             onMouseLeave={() => setHoveredGroupId(null)}
                         ></div>
                         <div
                             className={`absolute rounded-xl border-2 transition-all duration-500 z-0 cursor-help
                         ${hoveredGroupId === 'green' ? 'border-green-400 bg-green-50/40 shadow-lg' : 'border-green-100 bg-green-50/10'}`}
-                            style={{ left: 1020, top: 420, width: 280, height: 380 }}
+                            style={{ left: 1020, top: 420, width: 280, height: 280 }}
                             onMouseEnter={() => setHoveredGroupId('green')}
                             onMouseLeave={() => setHoveredGroupId(null)}
                         ></div>
