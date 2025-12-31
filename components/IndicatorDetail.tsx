@@ -1,7 +1,7 @@
 
 import React, { useRef, useState } from 'react';
 // Fix: Added Database to the imported icons from lucide-react
-import { Download, Share2, LayoutDashboard, X, FileText, FileSpreadsheet, ShieldCheck, History, Code, Zap, Info, AlertCircle, Database, Check } from 'lucide-react';
+import { Download, Share2, LayoutDashboard, X, FileText, FileSpreadsheet, Code, Zap, Info, Database, Check, ShieldCheck, History, AlertCircle } from 'lucide-react';
 
 interface IndicatorDetailProps {
   title?: string;
@@ -26,9 +26,6 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
   const statRef = useRef<HTMLDivElement>(null);
   const businessRef = useRef<HTMLDivElement>(null);
   const techRef = useRef<HTMLDivElement>(null);
-  const qualityRef = useRef<HTMLDivElement>(null);
-  const securityRef = useRef<HTMLDivElement>(null);
-  const logRef = useRef<HTMLDivElement>(null);
 
   const scrollToSection = (ref: React.RefObject<HTMLDivElement | null>) => {
     if (ref.current && containerRef.current) {
@@ -79,9 +76,6 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
             { label: '统计信息', ref: statRef, icon: Zap },
             { label: '业务口径', ref: businessRef, icon: Info },
             { label: '技术口径', ref: techRef, icon: Code },
-            { label: '数据质量', ref: qualityRef, icon: AlertCircle },
-            { label: '安全合规', ref: securityRef, icon: ShieldCheck },
-            { label: '修订记录', ref: logRef, icon: History },
           ].map((item, idx) => (
             <button
               key={idx}
@@ -257,85 +251,6 @@ FROM daily_bal;`}
               </div>
             </div>
           </div>
-
-          {/* Section: Data Quality */}
-          <div ref={qualityRef} className="scroll-mt-12">
-            <SectionTitle title="数据质量检核规则" subtitle="Quality Assurance" />
-            <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm">
-              <table className="w-full text-sm text-left">
-                <thead className="bg-gray-50 text-gray-500 uppercase text-[10px] font-bold">
-                  <tr>
-                    <th className="px-10 py-5">监控项</th>
-                    <th className="px-10 py-5">质量规则描述</th>
-                    <th className="px-10 py-5 text-center">严重程度</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-50 text-gray-700">
-                  <tr>
-                    <td className="px-10 py-6 font-bold">孤儿记录检核</td>
-                    <td className="px-10 py-6 text-gray-500">存款余额记录必须能够准确关联至有效的客户主档 (CIF_ID)。</td>
-                    <td className="px-10 py-6 text-center"><span className="text-red-500 font-bold">致命</span></td>
-                  </tr>
-                  <tr>
-                    <td className="px-10 py-6 font-bold">环比异常波动</td>
-                    <td className="px-10 py-6 text-gray-500">当日日均较昨日波动率不得超过 ±50%，若超限需触发业务核查流程。</td>
-                    <td className="px-10 py-6 text-center"><span className="text-orange-500 font-bold">警告</span></td>
-                  </tr>
-                  <tr>
-                    <td className="px-10 py-6 font-bold">总分核对逻辑</td>
-                    <td className="px-10 py-6 text-gray-500">明细数据日均加总值与分行报送总额的差异率应控制在 0.01% 以内。</td>
-                    <td className="px-10 py-6 text-center"><span className="text-red-500 font-bold">致命</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Section: Security */}
-          <div ref={securityRef} className="scroll-mt-12">
-            <SectionTitle title="安全合规与分级" subtitle="Data Security" />
-            <div className="grid grid-cols-2 gap-10">
-              <div className="p-10 bg-gray-900 text-white rounded-3xl space-y-6 shadow-xl">
-                <div className="text-xs text-gray-500 uppercase font-bold tracking-widest">数据安全分级标准</div>
-                <div className="text-4xl font-bold text-amber-500 flex items-center gap-3">
-                  L3 - 机密级 <ShieldCheck size={32} />
-                </div>
-                <p className="text-xs text-gray-400 leading-relaxed">
-                  本指标涉及全行核心经营数据及客户资金变动趋势，严禁在未经授权的终端导出明细。所有导出操作必须通过 DLP 系统进行审计追踪。
-                </p>
-              </div>
-              <div className="p-10 bg-white border border-gray-200 rounded-3xl space-y-6 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-bold text-gray-800">动态脱敏保护策略</span>
-                  <span className="bg-blue-100 text-blue-600 px-3 py-1 rounded-full text-[10px] font-bold">实时生效中</span>
-                </div>
-                <ul className="text-xs text-gray-600 space-y-4">
-                  <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div> 关联账号脱敏：首6位、尾4位可见</li>
-                  <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div> 客户主体脱敏：展示“*公司”或遮盖关键字段</li>
-                  <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 bg-blue-400 rounded-full"></div> 查看权限：仅限公司部及财会部主管职级</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          {/* Section: Revision History */}
-          <div ref={logRef} className="scroll-mt-12">
-            <SectionTitle title="版本修订记录" subtitle="Revision Logs" />
-            <div className="relative border-l-2 border-gray-100 ml-5 space-y-20 py-8">
-              <RevisionNode
-                version="V2.4" date="2024-05-12" title="优化汇率折算算法"
-                desc="将离岸账户存款纳入日均统计范围，同步更新了多币种按天汇率折算公式。修订人：王建国 (数据中心)" active
-              />
-              <RevisionNode
-                version="V2.1" date="2023-08-05" title="扩充产品目录映射"
-                desc="应计划财务部要求，新增了“保证金类存款”明细科目映射逻辑。修订人：李芳 (财务部)"
-              />
-              <RevisionNode
-                version="V1.0" date="2022-12-01" title="指标创建与上线"
-                desc="指标平台上线首发版本，定义了对公核心存款基础取数逻辑与汇总规范。"
-              />
-            </div>
-          </div>
         </div>
       </div>
 
@@ -429,14 +344,4 @@ const ScopeCard: React.FC<{ title: string; desc: string; link: string; color: 'b
   );
 };
 
-const RevisionNode: React.FC<{ version: string; date: string; title: string; desc: string; active?: boolean }> = ({ version, date, title, desc, active }) => (
-  <div className="relative pl-12 group">
-    <div className={`absolute left-[-13px] top-1.5 w-6 h-6 rounded-full border-4 border-white shadow-md transition-all ${active ? 'bg-blue-600 scale-125' : 'bg-gray-200'}`}></div>
-    <div className="flex items-center gap-4 mb-3">
-      <span className={`text-[10px] font-bold px-3 py-1 rounded-full ${active ? 'bg-blue-600 text-white shadow-sm' : 'bg-gray-100 text-gray-500'}`}>{version}</span>
-      <span className="text-[11px] text-gray-400 font-medium">{date}</span>
-    </div>
-    <div className="text-base font-bold text-gray-800 mb-2">{title}</div>
-    <p className="text-xs text-gray-500 leading-relaxed max-w-3xl">{desc}</p>
-  </div>
-);
+
