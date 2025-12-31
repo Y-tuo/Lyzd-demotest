@@ -1,6 +1,6 @@
 
 import React, { useRef, useState } from 'react';
-import { X, FileText, FileSpreadsheet, Code, Zap, Info, Database, Check, Settings, Users } from 'lucide-react';
+import { X, FileText, FileSpreadsheet, Code, Zap, Info, Database, Check, Settings, Users, ChevronRight } from 'lucide-react';
 
 interface IndicatorDetailProps {
   title?: string;
@@ -47,18 +47,35 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
     <div className="flex-1 bg-white m-3 rounded-lg shadow-sm flex flex-col h-[calc(100vh-120px)] overflow-hidden relative border border-gray-100">
 
       {/* 1. Header */}
+      {/* 1. Header */}
       <div className="px-8 py-4 border-b border-gray-100 flex items-center justify-between shrink-0 bg-white z-10">
         <div className="flex items-center gap-3">
-          <button className="bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-blue-700 transition">统一下发</button>
-          <button className="bg-blue-500 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-blue-600 transition">指标订阅</button>
-          <button className="bg-blue-400 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-blue-500 transition">指标看板</button>
+          <button
+            onClick={() => setShowDownloadModal(true)}
+            className="bg-blue-600 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-blue-700 transition shadow-sm active:scale-95"
+          >
+            规范下载
+          </button>
+          <button className="bg-blue-500 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-blue-600 transition shadow-sm active:scale-95">指标空间</button>
+          <button className="bg-blue-400 text-white px-3 py-1.5 rounded text-xs font-medium hover:bg-blue-500 transition shadow-sm active:scale-95">指标看板</button>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="bg-blue-50 px-3 py-1 rounded text-blue-600 text-xs font-medium flex items-center gap-1">
-            关联子指标：
-            <span className="underline cursor-pointer">GSZHYG010001对公存款余额</span>
-            <span className="underline cursor-pointer">GSZHYG010002对公存款日均</span>
+          <span className="text-blue-500 text-sm font-medium mr-1">关联子指标:</span>
+          <div className="flex items-center gap-2">
+            {[
+              { id: '1', name: 'GSZHYG00001对公存款余额' },
+              { id: '2', name: '关联子指标二' },
+              { id: '3', name: '关联子指标三' }
+            ].map((sub) => (
+              <button
+                key={sub.id}
+                className="group flex items-center gap-1 bg-blue-50 hover:bg-blue-100 text-blue-600 px-3 py-1.5 rounded text-xs transition-colors"
+              >
+                <span className="font-medium group-hover:underline">{sub.name}</span>
+                <ChevronRight size={12} className="text-blue-400 group-hover:text-blue-600" />
+              </button>
+            ))}
           </div>
         </div>
       </div>
