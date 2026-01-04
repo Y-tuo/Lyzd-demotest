@@ -1,6 +1,8 @@
 
 import React, { useRef, useState } from 'react';
-import { X, FileText, FileSpreadsheet, Code, Zap, Info, Database, Check, Settings, Users, ChevronRight, Download, LayoutGrid, LayoutDashboard } from 'lucide-react';
+import {
+  X, FileText, FileSpreadsheet, Check, Download, LayoutGrid, LayoutDashboard
+} from 'lucide-react';
 
 interface IndicatorDetailProps {
   title?: string;
@@ -26,6 +28,8 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
   const businessRef = useRef<HTMLDivElement>(null);
   const sameScopeRef = useRef<HTMLDivElement>(null);
   const techRef = useRef<HTMLDivElement>(null);
+  const limitRef = useRef<HTMLDivElement>(null);
+  const securityRef = useRef<HTMLDivElement>(null);
   const manageRef = useRef<HTMLDivElement>(null);
   const operateRef = useRef<HTMLDivElement>(null);
 
@@ -45,239 +49,287 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
   };
 
   return (
-    <div className="flex-1 bg-white m-3 rounded-lg shadow-sm flex flex-col h-[calc(100vh-120px)] overflow-hidden relative border border-gray-100">
+    <div className="flex-1 bg-surface-light dark:bg-surface-dark m-3 rounded-lg shadow-sm flex flex-col h-[calc(100vh-120px)] overflow-hidden relative border border-border-light dark:border-border-dark font-body">
 
-      {/* 1. Header */}
-      {/* 1. Header */}
-      <div className="px-8 py-4 border-b border-gray-100 flex items-center justify-between shrink-0 bg-white z-10">
+      {/* 1. Header Actions */}
+      <div className="px-6 py-4 border-b border-border-light dark:border-border-dark flex items-center justify-between shrink-0 bg-surface-light dark:bg-surface-dark z-10 rounded-t-lg">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowDownloadModal(true)}
-            className="bg-[#3b82f6] text-white px-4 py-2 rounded text-xs font-medium hover:bg-blue-600 transition shadow-sm active:scale-95 flex items-center gap-2"
+            className="bg-primary hover:bg-primary-dark text-white px-4 py-1.5 rounded text-sm font-medium transition shadow-sm flex items-center gap-1.5"
           >
-            <Download size={14} />
+            <Download size={16} />
             规范下载
           </button>
           <button
             onClick={onViewIndicatorSpace}
-            className="bg-[#3b82f6] text-white px-4 py-2 rounded text-xs font-medium hover:bg-blue-600 transition shadow-sm active:scale-95 flex items-center gap-2"
+            className="bg-primary hover:bg-primary-dark text-white px-4 py-1.5 rounded text-sm font-medium transition shadow-sm flex items-center gap-1.5"
           >
-            <LayoutGrid size={14} />
+            <LayoutGrid size={16} />
             指标空间
           </button>
-          <button className="bg-[#3b82f6] text-white px-4 py-2 rounded text-xs font-medium hover:bg-blue-600 transition shadow-sm active:scale-95 flex items-center gap-2">
-            <LayoutDashboard size={14} />
+          <button className="bg-primary hover:bg-primary-dark text-white px-4 py-1.5 rounded text-sm font-medium transition shadow-sm flex items-center gap-1.5">
+            <LayoutDashboard size={16} />
             指标看板
           </button>
-        </div>
-
-        <div className="flex items-center gap-2">
-          <span className="text-blue-500 text-sm font-medium mr-1">关联子指标:</span>
-          <div className="flex items-center gap-2">
-            {[
-              { id: '1', name: 'GSZHYG00001对公存款余额' },
-              { id: '2', name: '关联子指标二' },
-              { id: '3', name: '关联子指标三' }
-            ].map((sub) => (
-              <a
-                key={sub.id}
-                href="#"
-                onClick={(e) => { e.preventDefault(); /* Navigation logic here */ }}
-                className="group flex items-center gap-1 bg-blue-50 hover:bg-white text-blue-600 px-3 py-1.5 rounded text-xs transition-all border border-blue-200 hover:border-blue-600"
-              >
-                <span className="font-medium">{sub.name}</span>
-                <ChevronRight size={12} className="text-blue-400 group-hover:text-blue-600" />
-              </a>
-            ))}
-          </div>
         </div>
       </div>
 
       {/* 2. Anchor Navigation */}
-      <div className="px-8 py-2 border-b border-gray-50 flex items-center justify-between shrink-0 bg-gray-50/30">
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-          {[
-            { label: '指标基础信息', ref: basicRef, icon: FileText },
-            { label: '指标统计信息', ref: statRef, icon: Zap },
-            { label: '指标业务口径信息', ref: businessRef, icon: Info },
-            { label: '同口径其他指标', ref: sameScopeRef, icon: Database },
-            { label: '指标技术口径信息', ref: techRef, icon: Code },
-            { label: '管理信息', ref: manageRef, icon: Users },
-            { label: '运营信息', ref: operateRef, icon: Settings },
-          ].map((item, idx) => (
-            <button
-              key={idx}
-              onClick={() => scrollToSection(item.ref)}
-              className="px-3 py-1.5 text-xs text-gray-500 bg-white border border-gray-200 rounded-md whitespace-nowrap transition-all hover:text-blue-600 hover:border-blue-500 hover:shadow-sm"
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
+      <div className="px-6 py-3 border-b border-border-light dark:border-border-dark bg-gray-50 dark:bg-gray-800/50 flex items-center gap-2 overflow-x-auto no-scrollbar shrink-0 z-0">
+        {[
+          { label: '指标基础信息', ref: basicRef },
+          { label: '指标统计信息', ref: statRef },
+          { label: '指标业务口径信息', ref: businessRef },
+          { label: '同口径其他指标', ref: sameScopeRef },
+          { label: '指标技术口径信息', ref: techRef },
+          { label: '限制条件', ref: limitRef },
+          { label: '数据安全信息', ref: securityRef },
+          { label: '管理信息', ref: manageRef },
+          { label: '运营信息', ref: operateRef },
+        ].map((item, idx) => (
+          <button
+            key={idx}
+            onClick={() => scrollToSection(item.ref)}
+            className="px-3 py-1 text-xs font-medium rounded-full transition-colors whitespace-nowrap
+                         text-text-sub-light dark:text-text-sub-dark hover:bg-gray-200 dark:hover:bg-gray-700
+                         focus:bg-blue-100 dark:focus:bg-blue-900/50 focus:text-primary focus:border focus:border-blue-200 dark:focus:border-blue-800"
+          >
+            {item.label}
+          </button>
+        ))}
       </div>
 
       {/* 3. Content */}
-      <div ref={containerRef} className="flex-1 overflow-y-auto p-12 scroll-smooth bg-white">
-        <div className="max-w-6xl mx-auto space-y-16 pb-24">
+      <div ref={containerRef} className="flex-1 overflow-y-auto p-8 scroll-smooth bg-surface-light dark:bg-surface-dark">
+        <div className="max-w-6xl mx-auto space-y-12 pb-24">
 
           {/* Section: Basic Info */}
-          <div ref={basicRef} className="scroll-mt-12 space-y-6">
+          <section ref={basicRef} className="scroll-mt-36" id="basic">
             <SectionTitle title="指标基础信息" />
-            <div className="grid grid-cols-3 gap-y-6 gap-x-12 text-xs">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-8 text-sm">
               <InfoField label="指标编号" value="GSZHYG00002" />
               <InfoField label="指标名称" value={title || "对公存款日均"} />
               <InfoField label="指标英文名称" value="Average Daily Corporate Deposit Balance" />
-
               <InfoField label="指标一级分类" value="公司金融板块" />
               <InfoField label="指标二级分类" value="公司金融综合管理" />
               <InfoField label="指标三级分类" value="业务规模分析" />
-
               <InfoField label="指标别名" value="-" />
-              <InfoField label="指标重要程度" value="重要" />
+              <InfoField label="指标度量" value="金额" />
               <InfoField label="指标维度" value="机构、时间、币种" />
-
-              <div className="col-span-3">
-                <InfoField label="指标描述" value="我行吸收的对公客户的存款余额，包含保证金类存款余额，不包含同业存款。" fullWidth />
+              <div className="col-span-1 md:col-span-3">
+                <InfoField label="指标描述" value="我们吸收的对公客户的存款余额，包含保证金类存款余额。" />
               </div>
             </div>
-          </div>
+          </section>
 
           {/* Section: Stat Info */}
-          <div ref={statRef} className="scroll-mt-12 space-y-6">
+          <section ref={statRef} className="scroll-mt-36" id="stat">
             <SectionTitle title="指标统计信息" />
-            <div className="grid grid-cols-3 gap-y-6 gap-x-12 text-xs">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6 gap-x-8 text-sm">
               <InfoField label="统计频率" value="每日" />
               <InfoField label="度量单位" value="亿元" />
               <InfoField label="数值属性" value="时点值" />
-              <InfoField label="数据格式" value="17n(2)" />
-              <InfoField label="取值范围" value="[0, +∞)" />
+              <InfoField label="数据格式" value="17n (2)" />
+              <InfoField label="取值范围" value="[0,+∞]" />
             </div>
-          </div>
+          </section>
 
           {/* Section: Business Scope */}
-          <div ref={businessRef} className="scroll-mt-12 space-y-6">
+          <section ref={businessRef} className="scroll-mt-36" id="business">
             <SectionTitle title="指标业务口径信息" />
-            <div className="space-y-6 text-xs">
-              <div className="grid grid-cols-3 gap-y-6 gap-x-12">
-                <InfoField label="指标类型" value="原子指标" />
-                <InfoField label="产生方式" value="系统自动化" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 text-sm">
+              <InfoField label="指标类型" value="原子指标" />
+              <InfoField label="产生方式" value="系统自动化" />
+
+              <div className="col-span-1 md:col-span-2 space-y-1">
+                <span className="text-text-sub-light dark:text-text-sub-dark text-xs">指标描述</span>
+                <ul className="list-none space-y-2 mt-1 pl-0">
+                  <li className="flex items-start">
+                    <span
+                      className={`text-primary font-medium mr-2 whitespace-nowrap ${onViewProductCatalog ? 'cursor-pointer hover:underline' : ''}`}
+                      onClick={onViewProductCatalog}
+                    >
+                      产品范围限定:
+                    </span>
+                    <span className="text-text-main-light dark:text-text-main-dark">在xxxxxxxxx值类（ZJ）-01对公存款项下所有产品，包含活期保证金类及其他存款，</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span
+                      className={`text-primary font-medium mr-2 whitespace-nowrap ${onViewClientScope ? 'cursor-pointer hover:underline' : ''}`}
+                      onClick={onViewClientScope}
+                    >
+                      客户范围限定:
+                    </span>
+                    <span className="text-text-main-light dark:text-text-main-dark">在“客xxxxxxxxxx企业法人,企业非法人，事业单位，非银行类金融机构。</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span
+                      className={`text-primary font-medium mr-2 whitespace-nowrap ${onViewCurrencyScope ? 'cursor-pointer hover:underline' : ''}`}
+                      onClick={onViewCurrencyScope}
+                    >
+                      币种范围限定:
+                    </span>
+                    <span className="text-text-main-light dark:text-text-main-dark">本外币合计。</span>
+                  </li>
+                  <li className="flex items-start">
+                    <span className="text-primary font-medium mr-2 whitespace-nowrap">机构范围限定:</span>
+                    <span className="text-text-main-light dark:text-text-main-dark">全辖，包含香港分行。</span>
+                  </li>
+                </ul>
               </div>
-              <div className="space-y-3">
-                <div className="flex gap-4">
-                  <span className="text-gray-500 font-medium whitespace-nowrap min-w-[80px]">指标描述：</span>
-                  <div className="space-y-2 text-gray-700">
-                    <div className="flex gap-2">
-                      <span className="text-blue-600 underline cursor-pointer" onClick={onViewProductCatalog}>产品范围限定</span>
-                      <span>在 xxxxxxxxx (Z, J ...等) 对公存款项下所有产品，包含活期保证金及其他存款。</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-blue-600 underline cursor-pointer" onClick={onViewClientScope}>客户范围限定</span>
-                      <span>在 xxxxxxxxx 企业法人, 企业非法人，事业单位，非银行类金融机构。</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-blue-600 underline cursor-pointer" onClick={onViewCurrencyScope}>币种范围限定</span>
-                      <span>本外币合计。</span>
-                    </div>
-                    <div className="flex gap-2">
-                      <span className="text-blue-600 underline cursor-pointer">机构范围限定</span>
-                      <span>全辖，包含香港分行。</span>
-                    </div>
-                  </div>
+
+              <div className="col-span-1 md:col-span-2 space-y-1">
+                <span className="text-text-sub-light dark:text-text-sub-dark text-xs">计算公式</span>
+                <p className="font-medium text-text-main-light dark:text-text-main-dark">对公存款日均=从年初/季初/月初至统计时点的对公客户每日存款余额从年初/季初/月初至统计时点的自然日天数</p>
+              </div>
+
+              <div className="col-span-1 md:col-span-2 space-y-1">
+                <span className="text-text-sub-light dark:text-text-sub-dark text-xs">关联子指标</span>
+                <div>
+                  <a href="#" className="text-primary hover:underline">GSZHYG00001对公存款余额</a>
                 </div>
               </div>
-              <div className="flex gap-4">
-                <span className="text-gray-500 font-medium whitespace-nowrap min-w-[80px]">计算公式：</span>
-                <p className="text-gray-700">对公存款日均=从年初/季初/月初至统计时点的对公客户每日存款余额之和/年初/季初/月初至统计时点的自然天数</p>
-              </div>
-              <div className="grid grid-cols-2 gap-y-6 gap-x-12">
-                <div className="flex gap-4 items-center">
-                  <span className="text-gray-500 font-medium">关联手册：</span>
-                  <span className="text-blue-600 underline cursor-pointer">GSZHYG00001对公存款手册</span>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-y-6 gap-x-12">
-                <InfoField label="来源报表" value="-" />
-                <InfoField label="补充说明" value="-" />
-              </div>
+
+              <InfoField label="来源报表" value="-" />
+              <InfoField label="补充说明" value="-" />
             </div>
-          </div>
+          </section>
 
           {/* Section: Same Scope */}
-          <div ref={sameScopeRef} className="scroll-mt-12 space-y-6">
+          <section ref={sameScopeRef} className="scroll-mt-36" id="same-caliber">
             <SectionTitle title="同口径其他指标" />
-            <div className="grid grid-cols-3 gap-y-6 gap-x-12 text-xs">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-y-6 gap-x-8 text-sm">
               <InfoField label="监管报送" value="-" />
               <InfoField label="考核指标" value="-" />
               <InfoField label="对外披露指标" value="-" />
             </div>
-          </div>
+          </section>
 
           {/* Section: Tech Scope */}
-          <div ref={techRef} className="scroll-mt-12 space-y-6">
+          <section ref={techRef} className="scroll-mt-36" id="tech">
             <SectionTitle title="指标技术口径信息" />
-            <div className="text-xs space-y-6">
-              <div className="grid grid-cols-3 gap-y-6 gap-x-12">
-                <InfoField label="指标存储表英文名" value="S (DCMD_DATA)" />
-                <InfoField label="指标存储字段英文名" value="MNG_ANLY_IDX_ANLY" />
-                <InfoField label="路径字段英文名" value="IDX_BASE_VAL" />
-              </div>
-              <InfoField label="指标涉及系统字段" value="$odb_data / O_GLS_CUX_GL_BALANCES.YATD" fullWidth />
-
-              <div className="flex gap-4">
-                <span className="text-gray-500 font-medium whitespace-nowrap min-w-[80px]">指标加工规则：</span>
-                <div className="text-gray-700 space-y-2 leading-relaxed">
-                  <p>1.加工 CUST_GNL_BAL_DETL 客户总账余额明细表，取O_GLS_GUX_GL_BALANCES 总账日记表使用三级科目编号和核算编号左关联O_GLS_CUX_HUB_ACCOUNT_LIST (会计科目表)</p>
-                  <p>2.加工 CUST_GNL_BAL_DETL_T1 客户总账余额明细临时表，直接CUST_GNL_BAL_DETL 客户总账余额明细表中的数据，限制账簿编号、科目编号、开始日期、结束日期范围。</p>
-                  <p className="pl-4 text-gray-500">筛选条件：剔除所有会计期间描述中包含ADJ的记录，剔除记录的日期是12月31日且会计期间描述不包含 -12</p>
-                  <p>3.加工存款余额 (MNG_ANLY_IDX_ANLY中IDX_ENCD链接编码=CWFZ002)，取CUST_GNL_BAL_DETL_T1 客户总账余额明细临时表左关联GNL_ORG_MAP_INFO 总账机构映射信息表，限制一级、二级、三级会计科目，以及币种汇总、分行和香港分行的数据</p>
-                  <p>4.加工个人存款余额 (MNG_ANLY_IDX_ANLY中IDX_ENCD链接编码=CWFZ003)，取CUST_GNL_BAL_DETL_T1 客户总账余额明细临时表左关联GNL_ORG_MAP_INFO 总账机构映射信息表，限制一级、二级、三级会计科目，以及币种汇总、分行和香港分行的数据</p>
-                  <p>5.加工对公存款余额+存款余额-个人存款余额。用字段IDX_BASE_VAL (S (DCMD_DATA) .MNG_ANLY_IDX.ANLY，限制IDX_DNCD=CWFZ002和IDX_ENCD=CWFZ003)</p>
+            <div className="space-y-6 text-sm">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="flex flex-col space-y-1">
+                  <span className="text-text-sub-light dark:text-text-sub-dark text-xs">指标存储数据库表名</span>
+                  <span className="font-mono text-xs bg-gray-100 dark:bg-gray-800 p-1 rounded w-fit text-text-main-light dark:text-text-main-dark">$ {'{DDMO_DATA}'}</span>
+                </div>
+                <div className="flex flex-col space-y-1">
+                  <span className="text-text-sub-light dark:text-text-sub-dark text-xs">指标存储表英文名</span>
+                  <span className="font-mono text-xs bg-gray-100 dark:bg-gray-800 p-1 rounded w-fit text-text-main-light dark:text-text-main-dark">MNG_ANLY_IDX_ANLY</span>
+                </div>
+                <div className="flex flex-col space-y-1">
+                  <span className="text-text-sub-light dark:text-text-sub-dark text-xs">数据字段英文名</span>
+                  <span className="font-mono text-xs bg-gray-100 dark:bg-gray-800 p-1 rounded w-fit text-text-main-light dark:text-text-main-dark">IDX_BASE_VAL</span>
                 </div>
               </div>
 
-              <div className="flex gap-4">
-                <span className="text-gray-500 font-medium whitespace-nowrap min-w-[80px]">加工计算公式：</span>
-                <p className="text-gray-700 font-mono bg-gray-50 p-2 rounded w-full">
-                  ROUND (SUM(CASE WHEN T1.IDX_ENCD='CWFZ003' THEN NVL (T1.IDX_BASE_VAL,0) WHEN T1.IDX_ENCD='CWFZ007' THEN NVL (-T1.IDX_BASE_VAL,0) ELSE 0 END) , 2)
-                </p>
+              <div className="flex flex-col space-y-1">
+                <span className="text-text-sub-light dark:text-text-sub-dark text-xs">指标涉及系统字段</span>
+                <span className="font-mono text-xs bg-gray-100 dark:bg-gray-800 p-1 rounded w-fit text-text-main-light dark:text-text-main-dark">$lodb_data) .O_GLS_CUX_GL_BALANCES:YATD</span>
               </div>
 
-              <div className="flex gap-4">
-                <span className="text-gray-500 font-medium whitespace-nowrap min-w-[80px]">库表依赖关联：</span>
-                <div className="text-gray-700 space-y-1">
-                  <p>1. "存款余额" 筛选会计科目编号：</p>
-                  <p className="pl-4 text-gray-500">-一级科目号2104存入保证金：2202银行本票，2109特种存款，2204汇出汇款，2103信用卡存款</p>
-                  <p className="pl-4 text-gray-500">-“2111国内定期存款”，"1002银行存款"，“2112国库集中收缴款项”</p>
-                  <p className="pl-4 text-gray-500">-或者二级科目为“210301单位信用卡存款”，“210103单位久悬未取存款”，“210101单位活期存款210601单位理财产品款”</p>
+              <div className="bg-gray-50 dark:bg-gray-800/30 border border-border-light dark:border-border-dark rounded p-4">
+                <h4 className="font-medium mb-2 text-text-main-light dark:text-text-main-dark">指标加工规则</h4>
+                <ol className="list-decimal pl-5 space-y-2 text-text-sub-light dark:text-text-sub-dark text-xs leading-relaxed">
+                  <li>加工CUST_GNL_BAL_DETL_T1客户总账余额明细表，取O_GLS_CUX_GL_BALANCES 总账日记表使用三级科目编号和账簿编号左关联O_GLS_CUX_HUB_ACCOUNT_LIST 会计科目表</li>
+                  <li>加工CUST_GNL_BAL DETL_T1客户总账余额明细临时表，直取CUST_GNL_BAL_DETL 客户总账余额明细表中的数据，限制账簿编号、科目编号、开始日期、结束日期相同。</li>
+                  <li>筛选条件：排除所有会计期间描述中包含ADJ的记录，排除记录的日期是12月31日且会计期间描述不包含 -12</li>
+                  <li>加工存款余额（MNG_ANLY_IDX_ANLY中IDX_ENCD指标编码=CWFZ002），取CUST_GNL_BAL_DETL_T1 客户总账余额明细临时表左关联GNL_ORG_MAP_INFO 总账机构映射信息表，限制一级，二级、三级会计科目，以及币种和总，分行和香港分行的数据</li>
+                  <li>加工个人存款余额（MNG_ANLY_IDX_ANLY中IDX_ENCD指标编码=CWFZ006），取CUST_GNL_BAL_DETL_T1 客户总账余额明细临时表左关联GNL_ORG_MAP_INFO 总账机构映射信息表，限制一级、二级、三级会计科目，以及币种和总，分行和香港分行的数据</li>
+                  <li>加工对公存款余额 = 存款余额一个个人存款余额，取字段IDX_BASE_VAL.M.$ {'{DDMO_DATA}'} .MNG_ANLY_IDX_ANLY. 限制IDX_ENCD=CWFZ002和 IDX_ENCD=CWFZ006</li>
+                </ol>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4">
+                <div className="flex flex-col space-y-1">
+                  <span className="text-text-sub-light dark:text-text-sub-dark text-xs">加工计算公式</span>
+                  <code className="block p-3 bg-gray-100 dark:bg-gray-800 rounded text-xs font-mono text-gray-700 dark:text-gray-300 break-all">
+                    ROUND (SUM(CASE WHEN T1.IDX_ENCD='CWFZ003' THEN NVL (T1.IDX_BASE_VAL,0) WHEN T1.IDX_ENCD='CWFZ007' THEN NVL (-T1.IDX_BASE_VAL,0) ELSE 0 END) , 8)
+                  </code>
+                </div>
+                <div className="flex flex-col space-y-1">
+                  <span className="text-text-sub-light dark:text-text-sub-dark text-xs">表间关联条件</span>
+                  <code className="block p-3 bg-gray-100 dark:bg-gray-800 rounded text-xs font-mono text-gray-700 dark:text-gray-300 break-all whitespace-pre-wrap">
+                    {`$ {odb_data} .O_GLS_CUX_GL_BALANCES（总账日记表）关联 $ {odb_data} .O_GLS_CUX_HUB_ACCOUNT _LIST（会计科目表）
+--主要处理:
+--.使用三级科目编号和账簿编号左关联
+--.从总账系统获取原始余额数据
+--.关联会计科目表获取科目层级信息`}
+                  </code>
                 </div>
               </div>
             </div>
-          </div>
+          </section>
+
+          {/* Section: Limit Conditions */}
+          <section ref={limitRef} className="scroll-mt-36" id="limit">
+            <SectionTitle title="限制条件" />
+            <div className="bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-800 rounded-lg p-5 text-sm text-text-main-light dark:text-text-main-dark">
+              <h4 className="font-bold mb-3 text-primary">1."存款余额" 筛选会计科目编号:</h4>
+              <p className="mb-2 text-xs leading-relaxed text-text-sub-light dark:text-text-sub-dark">
+                一级科目号2104存入保证金: 2202银行本票，2109特种存款，2204汇出汇款，2103信用卡存款<br />
+                '2111国库定期存款'，'1002银行存款'，'2112国库集中收缴款项'<br />
+                或者二级科目号'210301单位信用卡存款'，'210103单位久悬未取存款'，210101单位活期存款210601单位理财产品款<br />
+                '250306受托监管资金，'210801外汇储备存款，210702单位结构性存款: "210102单位定期存款，<br />
+                210104单位大额存单，'210205个人久悬未取存款",'210203电子现金存款"，'210602个人理财产品款项，<br />
+                210201个人活期存款，"210204个人大额存单"，'210701个人结构性存款'，210202个人定期存款，'220502临时存款，<br />
+                '200411境内金融控股公司存放"220501应解汇款<br />
+                或者三级会计科目"25030703代理单位信托资金款项"21060402保险业金融机构理财产品款项，21060302单位理财托管资金（废止）: '20040801境内保险业金融机构系统内活期存放'<br />
+                '20040802境内保险业金融机构系统内定期存放，'25030404单位保本（废止），21060301个人理财托管资金（废止），'25030701代理个人信托资金款项，'25030402个人保本（废止），
+              </p>
+              <h4 className="font-bold mt-4 mb-3 text-primary">2."个人存款余额" 筛选会计科目编号</h4>
+              <p className="mb-2 text-xs leading-relaxed text-text-sub-light dark:text-text-sub-dark">
+                会计科目2103信用卡存款<br />
+                或者二级会计科目"210205个人久悬未取存款210203电子现金存款，210602个人理财产品款项.210201个人活期存款 ，210204个人大额存单' ，210701个人结构性存款'210202个人定期存款'<br />
+                或者三级会计科目'25030606个人委托监管资金，，'21060301个人理财托管资金（废止）'，'25030701代理个人信托资金款项'，'25030402个人保本（废止）'，'21049902个人保证金'
+              </p>
+            </div>
+          </section>
+
+          {/* Section: Data Security Info */}
+          <section ref={securityRef} className="scroll-mt-36" id="security">
+            <SectionTitle title="数据安全信息" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 text-sm">
+              <InfoField label="敏感性层级" value="-" />
+              <InfoField label="数据安全分级" value="-" />
+            </div>
+          </section>
 
           {/* Section: Management Info */}
-          <div ref={manageRef} className="scroll-mt-12 space-y-6">
+          <section ref={manageRef} className="scroll-mt-36" id="management">
             <SectionTitle title="管理信息" />
-            <div className="grid grid-cols-3 gap-y-6 gap-x-12 text-xs">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-8 text-sm">
               <InfoField label="业务主管部门" value="公司业务部" />
               <InfoField label="业务联系人" value="xxx" />
+              <div className="hidden lg:block"></div>
               <InfoField label="指标开发负责人" value="-" />
-              <InfoField label="主数据源" value="总体系统" />
-              <InfoField label="土屏展示" value="管理驾驶舱" />
-              <InfoField label="指标加工方式" value="调用总账系统数据后在数据中台系统加工" fullWidth />
-              <InfoField label="相关质量规则" value="-" fullWidth />
-              <InfoField label="指标状态" value="已上线" />
+              <InfoField label="主数据源" value="总账系统" />
+              <InfoField label="管理层级" value="金融" />
+              <div className="col-span-1 md:col-span-3">
+                <InfoField label="指标加工方式" value="调用总账系统数据后在数据信息中枢系统加工" />
+              </div>
+              <div className="col-span-1 md:col-span-3">
+                <InfoField label="相关质量规则" value="-" />
+              </div>
+              <div className="flex flex-col space-y-1">
+                <span className="text-text-sub-light dark:text-text-sub-dark text-xs">指标状态</span>
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 w-fit">已上线</span>
+              </div>
               <InfoField label="生效日期" value="2025年12月31日" />
-              <InfoField label="失效日期" value="2025年12月31日" />
+              <InfoField label="失效日期" value="2099年12月31日" />
             </div>
-          </div>
+          </section>
 
           {/* Section: Operation Info */}
-          <div ref={operateRef} className="scroll-mt-12 space-y-6">
+          <section ref={operateRef} className="scroll-mt-36" id="operation">
             <SectionTitle title="运营信息" />
-            <div className="text-xs">
-              <InfoField label="预警规则" value="-" />
+            <div className="flex flex-col space-y-1 text-sm">
+              <span className="text-text-sub-light dark:text-text-sub-dark text-xs">预警规则</span>
+              <span className="font-medium text-text-main-light dark:text-text-main-dark">-</span>
             </div>
-          </div>
+          </section>
 
         </div>
       </div>
@@ -294,13 +346,13 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
               <p className="text-sm text-gray-500 mt-2">请选择导出格式，文件将包含所有章节内容</p>
             </div>
             <div className="grid grid-cols-2 gap-8 mb-12">
-              <button onClick={() => toggleFormat('word')} className={`relative flex flex-col items-center justify-center gap-5 p-10 border-2 rounded-3xl transition-all ${selectedFormats.has('word') ? 'border-blue-500 bg-blue-50/50' : 'border-gray-50 bg-gray-50 hover:border-gray-200'}`}>
+              <button onClick={() => toggleFormat('word')} className={`relative flex flex-col items-center justify-center gap-5 p-10 border-2 rounded-3xl transition-all ${selectedFormats.has('word') ? 'border-primary bg-blue-50/50' : 'border-gray-50 bg-gray-50 hover:border-gray-200'}`}>
                 {selectedFormats.has('word') && (
-                  <div className="absolute top-4 right-4 bg-blue-600 text-white rounded-full p-1 shadow-sm">
+                  <div className="absolute top-4 right-4 bg-primary text-white rounded-full p-1 shadow-sm">
                     <Check size={14} strokeWidth={3} />
                   </div>
                 )}
-                <FileText size={40} className="text-blue-600" />
+                <FileText size={40} className="text-primary" />
                 <span className="text-sm font-bold text-gray-700">Word 文档</span>
               </button>
               <button onClick={() => toggleFormat('excel')} className={`relative flex flex-col items-center justify-center gap-5 p-10 border-2 rounded-3xl transition-all ${selectedFormats.has('excel') ? 'border-emerald-500 bg-emerald-50/50' : 'border-gray-50 bg-gray-50 hover:border-gray-200'}`}>
@@ -315,7 +367,7 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
             </div>
             <button
               onClick={() => setShowDownloadModal(false)}
-              className="w-full py-5 bg-blue-600 text-white rounded-2xl font-bold shadow-lg hover:bg-blue-700 active:scale-[0.98] transition-all disabled:bg-gray-200"
+              className="w-full py-5 bg-primary text-white rounded-2xl font-bold shadow-lg hover:bg-primary-dark active:scale-[0.98] transition-all disabled:bg-gray-200"
               disabled={selectedFormats.size === 0}
             >
               立即生成
@@ -330,14 +382,15 @@ export const IndicatorDetail: React.FC<IndicatorDetailProps> = ({
 // --- Helper Components ---
 
 const SectionTitle: React.FC<{ title: string }> = ({ title }) => (
-  <div className="flex items-center gap-3 mb-6 border-l-4 border-blue-600 pl-3">
-    <h3 className="text-sm font-bold text-gray-800">{title}</h3>
+  <div className="flex items-center mb-4 pb-2 border-b border-border-light dark:border-border-dark">
+    <div className="w-1 h-5 bg-primary rounded-full mr-3"></div>
+    <h2 className="text-lg font-bold text-text-main-light dark:text-text-main-dark">{title}</h2>
   </div>
 );
 
-const InfoField: React.FC<{ label: string; value: string; fullWidth?: boolean }> = ({ label, value, fullWidth }) => (
-  <div className={`flex gap-4 ${fullWidth ? 'col-span-3' : ''}`}>
-    <span className="text-gray-500 font-medium whitespace-nowrap min-w-[80px]">{label}:</span>
-    <span className="text-gray-800 font-medium break-words">{value}</span>
+const InfoField: React.FC<{ label: string; value: string }> = ({ label, value }) => (
+  <div className="flex flex-col space-y-1">
+    <span className="text-text-sub-light dark:text-text-sub-dark text-xs">{label}</span>
+    <span className="font-medium text-text-main-light dark:text-text-main-dark">{value}</span>
   </div>
 );

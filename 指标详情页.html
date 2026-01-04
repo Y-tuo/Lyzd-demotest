@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Indicator Details Page - Optimized</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Noto+Sans+SC:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3b82f6", // Blue similar to the screenshot
+                        "primary-dark": "#2563eb",
+                        "background-light": "#f3f4f6", // Light gray background
+                        "background-dark": "#111827", // Dark gray background
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1f2937",
+                        "border-light": "#e5e7eb",
+                        "border-dark": "#374151",
+                        "text-main-light": "#1f2937",
+                        "text-main-dark": "#f9fafb",
+                        "text-sub-light": "#6b7280",
+                        "text-sub-dark": "#9ca3af",
+                    },
+                    fontFamily: {
+                        display: ["'Inter'", "'Noto Sans SC'", "sans-serif"],
+                        body: ["'Inter'", "'Noto Sans SC'", "sans-serif"],
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.375rem",
+                    },
+                },
+            },
+        };
+    </script>
+<style>::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #6b7280;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main-light dark:text-text-main-dark font-body antialiased min-h-screen flex flex-col">
+<header class="bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark sticky top-0 z-50 shadow-sm h-14 flex items-center px-6 justify-between">
+<div class="flex items-center space-x-8">
+<div class="flex items-center space-x-2">
+<div class="w-8 h-8 bg-primary rounded flex items-center justify-center text-white font-bold">D</div>
+<span class="font-bold text-lg text-primary tracking-tight">数据魔方</span>
+</div>
+<nav class="hidden md:flex space-x-6 text-sm font-medium text-text-sub-light dark:text-text-sub-dark">
+<a class="hover:text-primary transition-colors" href="#">首页</a>
+<a class="hover:text-primary transition-colors" href="#">数据超市</a>
+<a class="hover:text-primary transition-colors" href="#">自助分析</a>
+<a class="hover:text-primary transition-colors" href="#">数据模型</a>
+<a class="hover:text-primary transition-colors" href="#">魔方学院</a>
+<a class="hover:text-primary transition-colors" href="#">数据知乎</a>
+<a class="hover:text-primary transition-colors" href="#">我的魔方</a>
+<a class="hover:text-primary transition-colors" href="#">系统管理</a>
+<a class="text-primary border-b-2 border-primary pb-[1.1rem] -mb-[1.1rem]" href="#">指标平台</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4 text-text-sub-light dark:text-text-sub-dark">
+<button class="hover:text-primary"><span class="material-icons text-xl">print</span></button>
+<button class="hover:text-primary"><span class="material-icons text-xl">description</span></button>
+<button class="relative hover:text-primary">
+<span class="material-icons text-xl">notifications</span>
+<span class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center">2</span>
+</button>
+<div class="flex items-center space-x-2 text-sm pl-4 border-l border-border-light dark:border-border-dark">
+<span>欢迎您, zhanhyi</span>
+<span class="material-icons text-base">arrow_drop_down</span>
+</div>
+</div>
+</header>
+<div class="bg-surface-light dark:bg-surface-dark border-b border-border-light dark:border-border-dark px-6 py-2 flex items-center justify-between">
+<div class="flex items-center space-x-2 overflow-x-auto no-scrollbar">
+<button class="px-3 py-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-text-sub-light dark:text-text-sub-dark text-xs flex items-center">
+<span class="material-icons text-sm mr-1">home</span> 首页
+            </button>
+<span class="text-gray-300 dark:text-gray-600">|</span>
+<button class="px-3 py-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-text-sub-light dark:text-text-sub-dark text-xs flex items-center group">
+                指标平台 <span class="material-icons text-xs ml-1 opacity-0 group-hover:opacity-100">close</span>
+</button>
+<span class="text-gray-300 dark:text-gray-600">|</span>
+<button class="px-3 py-1.5 bg-blue-50 dark:bg-blue-900/30 text-primary rounded border border-blue-100 dark:border-blue-800 text-xs flex items-center font-medium">
+                对公存款日均规范 <span class="material-icons text-xs ml-2 hover:text-red-500 cursor-pointer">close</span>
+</button>
+</div>
+<div class="flex items-center space-x-1">
+<button class="w-7 h-7 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-400">
+<span class="material-icons text-base">chevron_left</span>
+</button>
+<button class="w-7 h-7 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-400">
+<span class="material-icons text-base">chevron_right</span>
+</button>
+<button class="w-7 h-7 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 rounded text-gray-400">
+<span class="material-icons text-base">close</span>
+</button>
+</div>
+</div>
+<main class="flex-1 p-6 overflow-y-auto">
+<div class="bg-surface-light dark:bg-surface-dark rounded-lg shadow-sm border border-border-light dark:border-border-dark min-h-full">
+<div class="p-4 border-b border-border-light dark:border-border-dark flex flex-wrap gap-3 items-center sticky top-0 bg-surface-light dark:bg-surface-dark z-10 rounded-t-lg">
+<button class="bg-primary hover:bg-primary-dark text-white px-4 py-1.5 rounded text-sm flex items-center shadow-sm transition-colors">
+<span class="material-icons text-sm mr-1.5">download</span> 规范下载
+                </button>
+<button class="bg-primary hover:bg-primary-dark text-white px-4 py-1.5 rounded text-sm flex items-center shadow-sm transition-colors">
+<span class="material-icons text-sm mr-1.5">grid_view</span> 指标空间
+                </button>
+<button class="bg-primary hover:bg-primary-dark text-white px-4 py-1.5 rounded text-sm flex items-center shadow-sm transition-colors">
+<span class="material-icons text-sm mr-1.5">analytics</span> 指标看板
+                </button>
+</div>
+<div class="px-6 py-3 border-b border-border-light dark:border-border-dark bg-gray-50 dark:bg-gray-800/50 flex flex-wrap gap-2 text-xs sticky top-[60px] z-0">
+<a class="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/50 text-primary border border-blue-200 dark:border-blue-800 font-medium" href="#basic">指标基础信息</a>
+<a class="px-3 py-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-text-sub-light dark:text-text-sub-dark transition-colors" href="#stat">指标统计信息</a>
+<a class="px-3 py-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-text-sub-light dark:text-text-sub-dark transition-colors" href="#business">指标业务口径信息</a>
+<a class="px-3 py-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-text-sub-light dark:text-text-sub-dark transition-colors" href="#same-caliber">同口径其他指标</a>
+<a class="px-3 py-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-text-sub-light dark:text-text-sub-dark transition-colors" href="#tech">指标技术口径信息</a>
+<a class="px-3 py-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-text-sub-light dark:text-text-sub-dark transition-colors" href="#limit">限制条件</a>
+<a class="px-3 py-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-text-sub-light dark:text-text-sub-dark transition-colors" href="#security">数据安全信息</a>
+<a class="px-3 py-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-text-sub-light dark:text-text-sub-dark transition-colors" href="#management">管理信息</a>
+<a class="px-3 py-1 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 text-text-sub-light dark:text-text-sub-dark transition-colors" href="#operation">运营信息</a>
+</div>
+<div class="p-8 space-y-10 max-w-6xl mx-auto">
+<section class="scroll-mt-36" id="basic">
+<div class="flex items-center mb-4 pb-2 border-b border-border-light dark:border-border-dark">
+<div class="w-1 h-5 bg-primary rounded-full mr-3"></div>
+<h2 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">指标基础信息</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-8 text-sm">
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标编号</span>
+<span class="font-medium">GSZHYG00002</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标名称</span>
+<span class="font-medium">对公存款日均</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标英文名称</span>
+<span class="font-medium">Average Daily Corporate Deposit Balance</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标一级分类</span>
+<span class="font-medium">公司金融板块</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标二级分类</span>
+<span class="font-medium">公司金融综合管理</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标三级分类</span>
+<span class="font-medium">业务规模分析</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标别名</span>
+<span class="font-medium">-</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标度量</span>
+<span class="font-medium">金额</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标维度</span>
+<span class="font-medium">机构、时间、币种</span>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标描述</span>
+<p class="font-medium leading-relaxed">我们吸收的对公客户的存款余额，包含保证金类存款余额。</p>
+</div>
+</div>
+</section>
+<section class="scroll-mt-36" id="stat">
+<div class="flex items-center mb-4 pb-2 border-b border-border-light dark:border-border-dark">
+<div class="w-1 h-5 bg-primary rounded-full mr-3"></div>
+<h2 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">指标统计信息</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-y-6 gap-x-8 text-sm">
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">统计频率</span>
+<span class="font-medium">每日</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">度量单位</span>
+<span class="font-medium">亿元</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">数值属性</span>
+<span class="font-medium">时点值</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">数据格式</span>
+<span class="font-medium">17n (2)</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">取值范围</span>
+<span class="font-medium">[0,+∞]</span>
+</div>
+</div>
+</section>
+<section class="scroll-mt-36" id="business">
+<div class="flex items-center mb-4 pb-2 border-b border-border-light dark:border-border-dark">
+<div class="w-1 h-5 bg-primary rounded-full mr-3"></div>
+<h2 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">指标业务口径信息</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 text-sm">
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标类型</span>
+<span class="font-medium">原子指标</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">产生方式</span>
+<span class="font-medium">系统自动化</span>
+</div>
+<div class="col-span-1 md:col-span-2 space-y-3">
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标描述</span>
+<ul class="list-none space-y-2 mt-1">
+<li class="flex items-start">
+<span class="text-primary font-medium mr-2">产品范围限定:</span>
+<span>在xxxxxxxxx值类（ZJ）-01对公存款项下所有产品，包含活期保证金类及其他存款，</span>
+</li>
+<li class="flex items-start">
+<span class="text-primary font-medium mr-2">客户范围限定:</span>
+<span>在“客xxxxxxxxxx企业法人,企业非法人，事业单位，非银行类金融机构。</span>
+</li>
+<li class="flex items-start">
+<span class="text-primary font-medium mr-2">币种范围限定:</span>
+<span>本外币合计。</span>
+</li>
+<li class="flex items-start">
+<span class="text-primary font-medium mr-2">机构范围限定:</span>
+<span>全辖，包含香港分行。</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="col-span-1 md:col-span-2 flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">计算公式</span>
+<p class="font-medium">对公存款日均=从年初/季初/月初至统计时点的对公客户每日存款余额从年初/季初/月初至统计时点的自然日天数</p>
+</div>
+<div class="col-span-1 md:col-span-2 flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">关联子指标</span>
+<a class="text-primary hover:underline" href="#">GSZHYG00001对公存款余额</a>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">来源报表</span>
+<span class="font-medium">-</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">补充说明</span>
+<span class="font-medium">-</span>
+</div>
+</div>
+</section>
+<section class="scroll-mt-36" id="same-caliber">
+<div class="flex items-center mb-4 pb-2 border-b border-border-light dark:border-border-dark">
+<div class="w-1 h-5 bg-primary rounded-full mr-3"></div>
+<h2 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">同口径其他指标</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-y-6 gap-x-8 text-sm">
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">监管报送</span>
+<span class="font-medium">-</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">考核指标</span>
+<span class="font-medium">-</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">对外披露指标</span>
+<span class="font-medium">-</span>
+</div>
+</div>
+</section>
+<section class="scroll-mt-36" id="tech">
+<div class="flex items-center mb-4 pb-2 border-b border-border-light dark:border-border-dark">
+<div class="w-1 h-5 bg-primary rounded-full mr-3"></div>
+<h2 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">指标技术口径信息</h2>
+</div>
+<div class="space-y-6 text-sm">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标存储数据库表名</span>
+<span class="font-mono text-xs bg-gray-100 dark:bg-gray-800 p-1 rounded w-fit">$ {DDMO_DATA}</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标存储表英文名</span>
+<span class="font-mono text-xs bg-gray-100 dark:bg-gray-800 p-1 rounded w-fit">MNG_ANLY_IDX_ANLY</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">数据字段英文名</span>
+<span class="font-mono text-xs bg-gray-100 dark:bg-gray-800 p-1 rounded w-fit">IDX_BASE_VAL</span>
+</div>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标涉及系统字段</span>
+<span class="font-mono text-xs bg-gray-100 dark:bg-gray-800 p-1 rounded w-fit">$lodb_data) .O_GLS_CUX_GL_BALANCES:YATD</span>
+</div>
+<div class="bg-gray-50 dark:bg-gray-800/30 border border-border-light dark:border-border-dark rounded p-4">
+<h4 class="font-medium mb-2 text-text-main-light dark:text-text-main-dark">指标加工规则</h4>
+<ol class="list-decimal pl-5 space-y-2 text-text-sub-light dark:text-text-sub-dark text-xs leading-relaxed">
+<li>加工CUST_GNL_BAL_DETL_T1客户总账余额明细表，取O_GLS_CUX_GL_BALANCES 总账日记表使用三级科目编号和账簿编号左关联O_GLS_CUX_HUB_ACCOUNT_LIST 会计科目表</li>
+<li>加工CUST_GNL_BAL DETL_T1客户总账余额明细临时表，直取CUST_GNL_BAL_DETL 客户总账余额明细表中的数据，限制账簿编号、科目编号、开始日期、结束日期相同。</li>
+<li>筛选条件：排除所有会计期间描述中包含ADJ的记录，排除记录的日期是12月31日且会计期间描述不包含 -12</li>
+<li>加工存款余额（MNG_ANLY_IDX_ANLY中IDX_ENCD指标编码=CWFZ002），取CUST_GNL_BAL_DETL_T1 客户总账余额明细临时表左关联GNL_ORG_MAP_INFO 总账机构映射信息表，限制一级，二级、三级会计科目，以及币种和总，分行和香港分行的数据</li>
+<li>加工个人存款余额（MNG_ANLY_IDX_ANLY中IDX_ENCD指标编码=CWFZ006），取CUST_GNL_BAL_DETL_T1 客户总账余额明细临时表左关联GNL_ORG_MAP_INFO 总账机构映射信息表，限制一级、二级、三级会计科目，以及币种和总，分行和香港分行的数据</li>
+<li>加工对公存款余额 = 存款余额一个个人存款余额，取字段IDX_BASE_VAL.M.$ {DDMO_DATA} .MNG_ANLY_IDX_ANLY. 限制IDX_ENCD=CWFZ002和 IDX_ENCD=CWFZ006</li>
+</ol>
+</div>
+<div class="grid grid-cols-1 gap-4">
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">加工计算公式</span>
+<code class="block p-3 bg-gray-100 dark:bg-gray-800 rounded text-xs font-mono text-gray-700 dark:text-gray-300 break-all">ROUND (SUM(CASE WHEN T1.IDX_ENCD='CWFZ003' THEN NVL (T1.IDX_BASE_VAL,0) WHEN T1.IDX_ENCD='CWFZ007' THEN NVL (-T1.IDX_BASE_VAL,0) ELSE 0 END) , 8)</code>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">表间关联条件</span>
+<code class="block p-3 bg-gray-100 dark:bg-gray-800 rounded text-xs font-mono text-gray-700 dark:text-gray-300 break-all">$ {odb_data} .O_GLS_CUX_GL_BALANCES（总账日记表）关联 $ {odb_data} .O_GLS_CUX_HUB_ACCOUNT _LIST（会计科目表）
+--主要处理:
+--.使用三级科目编号和账簿编号左关联
+--.从总账系统获取原始余额数据
+--.关联会计科目表获取科目层级信息</code>
+</div>
+</div>
+</div>
+</section>
+<section class="scroll-mt-36" id="limit">
+<div class="flex items-center mb-4 pb-2 border-b border-border-light dark:border-border-dark">
+<div class="w-1 h-5 bg-primary rounded-full mr-3"></div>
+<h2 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">限制条件</h2>
+</div>
+<div class="bg-blue-50 dark:bg-blue-900/10 border border-blue-100 dark:border-blue-800 rounded-lg p-5 text-sm text-text-main-light dark:text-text-main-dark">
+<h4 class="font-bold mb-3 text-primary">1."存款余额" 筛选会计科目编号:</h4>
+<p class="mb-2 text-xs leading-relaxed text-text-sub-light dark:text-text-sub-dark">
+                            一级科目号2104存入保证金: 2202银行本票，2109特种存款，2204汇出汇款，2103信用卡存款<br/>
+                            '2111国库定期存款'，'1002银行存款'，'2112国库集中收缴款项'<br/>
+                            或者二级科目号'210301单位信用卡存款'，'210103单位久悬未取存款'，210101单位活期存款210601单位理财产品款<br/>
+                            '250306受托监管资金，'210801外汇储备存款，210702单位结构性存款: "210102单位定期存款，<br/>
+                            210104单位大额存单，'210205个人久悬未取存款",'210203电子现金存款"，'210602个人理财产品款项，<br/>
+                            210201个人活期存款，"210204个人大额存单"，'210701个人结构性存款'，210202个人定期存款，'220502临时存款，<br/>
+                            '200411境内金融控股公司存放"220501应解汇款<br/>
+                            或者三级会计科目"25030703代理单位信托资金款项"21060402保险业金融机构理财产品款项，21060302单位理财托管资金（废止）: '20040801境内保险业金融机构系统内活期存放'<br/>
+                            '20040802境内保险业金融机构系统内定期存放，'25030404单位保本（废止），21060301个人理财托管资金（废止），'25030701代理个人信托资金款项，'25030402个人保本（废止），
+                        </p>
+<h4 class="font-bold mt-4 mb-3 text-primary">2."个人存款余额" 筛选会计科目编号</h4>
+<p class="mb-2 text-xs leading-relaxed text-text-sub-light dark:text-text-sub-dark">
+                            会计科目2103信用卡存款<br/>
+                            或者二级会计科目"210205个人久悬未取存款210203电子现金存款，210602个人理财产品款项.210201个人活期存款 ，210204个人大额存单' ，210701个人结构性存款'210202个人定期存款'<br/>
+                            或者三级会计科目'25030606个人委托监管资金，，'21060301个人理财托管资金（废止）'，'25030701代理个人信托资金款项'，'25030402个人保本（废止）'，'21049902个人保证金'
+                        </p>
+</div>
+</section>
+<section class="scroll-mt-36" id="security">
+<div class="flex items-center mb-4 pb-2 border-b border-border-light dark:border-border-dark">
+<div class="w-1 h-5 bg-primary rounded-full mr-3"></div>
+<h2 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">数据安全信息</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-8 text-sm">
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">敏感性层级</span>
+<span class="font-medium">-</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">数据安全分级</span>
+<span class="font-medium">-</span>
+</div>
+</div>
+</section>
+<section class="scroll-mt-36" id="management">
+<div class="flex items-center mb-4 pb-2 border-b border-border-light dark:border-border-dark">
+<div class="w-1 h-5 bg-primary rounded-full mr-3"></div>
+<h2 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">管理信息</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-6 gap-x-8 text-sm">
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">业务主管部门</span>
+<span class="font-medium">公司业务部</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">业务联系人</span>
+<span class="font-medium">xxx</span>
+</div>
+<div class="hidden lg:block"></div> 
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标开发负责人</span>
+<span class="font-medium">-</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">主数据源</span>
+<span class="font-medium">总账系统</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">管理层级</span>
+<span class="font-medium">金融</span>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标加工方式</span>
+<span class="font-medium">调用总账系统数据后在数据信息中枢系统加工</span>
+</div>
+<div class="col-span-1 md:col-span-3 flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">相关质量规则</span>
+<span class="font-medium">-</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">指标状态</span>
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 w-fit">已上线</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">生效日期</span>
+<span class="font-medium">2025年12月31日</span>
+</div>
+<div class="flex flex-col space-y-1">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">失效日期</span>
+<span class="font-medium">2099年12月31日</span>
+</div>
+</div>
+</section>
+<section class="scroll-mt-36 pb-12" id="operation">
+<div class="flex items-center mb-4 pb-2 border-b border-border-light dark:border-border-dark">
+<div class="w-1 h-5 bg-primary rounded-full mr-3"></div>
+<h2 class="text-lg font-bold text-text-main-light dark:text-text-main-dark">运营信息</h2>
+</div>
+<div class="flex flex-col space-y-1 text-sm">
+<span class="text-text-sub-light dark:text-text-sub-dark text-xs">预警规则</span>
+<span class="font-medium">-</span>
+</div>
+</section>
+</div>
+</div>
+</main>
+<footer class="bg-surface-light dark:bg-surface-dark border-t border-border-light dark:border-border-dark py-4 px-6 text-center text-xs text-text-sub-light dark:text-text-sub-dark">
+        © 2024 数据魔方 Data Cube Platform. All rights reserved.
+    </footer>
+
+</body></html>
